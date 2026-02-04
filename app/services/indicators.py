@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-from app.services.indicators import add_indicators
-
-__all__ = ["add_indicators"]
-=======
 import pandas as pd
+
 
 def add_indicators(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -47,4 +43,3 @@ def add_indicators(df: pd.DataFrame) -> pd.DataFrame:
     df["BB_lower"] = sma - (std * 2)
 
     return df
->>>>>>> origin/main

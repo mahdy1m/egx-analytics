@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-from app.main import app
-
-__all__ = ["app"]
-
-=======
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import prices
@@ -22,4 +16,3 @@ app.include_router(prices.router, prefix="/api/v1/prices", tags=["prices"])
 @app.get("/")
 async def root():
     return {"message": "EGX Analytics API is running"}
->>>>>>> origin/main

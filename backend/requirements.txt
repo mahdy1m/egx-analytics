@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+pandas
+yfinance
+numpy
+python-multipart
+aiohttp
+pytest
+requests
+ruff
+pre-commit
