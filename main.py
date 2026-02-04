@@ -1,18 +1,4 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from app.api import prices
+from app.main import app
 
-app = FastAPI(title="EGX Analytics API")
+__all__ = ["app"]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-app.include_router(prices.router, prefix="/api/v1/prices", tags=["prices"])
-
-@app.get("/")
-async def root():
-    return {"message": "EGX Analytics API is running"}

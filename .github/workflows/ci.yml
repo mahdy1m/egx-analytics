@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - name: Install backend deps and tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+      - name: Run linter (ruff)
+        run: |
+          python -m ruff check .
+      - name: Run tests
+        run: |
+          pytest -q
+      - name: Integration tests (frontend + backend)
+        runs-on: ubuntu-latest
+        env:
+          BACKEND_PORT: 8001
+          FRONTEND_PORT: 3001
+        run: |
+          # Install Node and build frontend
+          curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          cd frontend
+          npm ci
+          npm run build
+          # Start backend
+          nohup python -m uvicorn app.main:app --port 8001 &
+          # Start frontend
+          nohup npx next start -p 3001 &
+          sleep 3
+          pytest -q tests/test_integration.py
