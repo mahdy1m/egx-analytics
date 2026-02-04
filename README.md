@@ -12,6 +12,7 @@
 API:
 - GET /api/v1/prices/{symbol}  => بيانات سعرية بسيطة + مؤشرات
 
+<<<<<<< HEAD
 ---
 
 ## Development & Tests 🔧
@@ -20,4 +21,6 @@ API:
 - Run tests: pytest
 - Run the API locally: uvicorn app.main:app --reload --port 8000
 
+=======
+>>>>>>> origin/main
 Licence: MIT
